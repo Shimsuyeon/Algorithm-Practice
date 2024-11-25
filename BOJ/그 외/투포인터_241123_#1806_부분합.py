@@ -1,14 +1,10 @@
-n,s = map(int, input().split())
-
+n,s = map(int,input().split())
 a = list(map(int,input().split()))
 
-# 연속 부분합 중 합이 s가 되는 것 중 가장 짧은 것
-
-
+partial = a[0]
 ans=100001
 start=0
 end=0
-partial=a[0]
 
 while True:
     if partial<s:
@@ -18,7 +14,7 @@ while True:
         partial+=a[end]
     else:
         partial-=a[start]
-        ans = min(ans, end-start+1)
+        ans = min(ans,end-start+1)
         start+=1
 
 if ans==100001:
