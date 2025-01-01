@@ -1,0 +1,33 @@
+n = int(input())  # 옵션 개수 입력
+
+# 옵션 리스트 입력
+a = [list(map(str, input().split())) for _ in range(n)]
+
+# 단축키를 저장할 리스트
+save = []  
+
+for i in range(n):
+    k = a[i]
+    flag = True  # 단축키를 지정했는지 여부
+    for j in range(len(k)):  # 단어의 첫 글자부터 확인
+        key = k[j]
+        if key[0].lower() not in save:  # 첫 글자가 단축키로 지정되지 않았다면
+            save.append(key[0].lower())  # 단축키로 지정
+            k[j] = "[" + key[0] + "]" + key[1:]  # 단축키로 지정된 글자 괄호 처리
+            print(' '.join(k))  # 출력
+            flag = False
+            break
+    if flag:  # 첫 글자로 지정하지 못한 경우
+        for j in range(len(k)):
+            key = k[j]
+            for index, val in enumerate(key):  # 단어 전체를 순회
+                if val.lower() not in save:  # 단축키로 지정되지 않은 알파벳 발견
+                    save.append(val.lower())  # 단축키로 지정
+                    k[j] = key[:index] + "[" + val + "]" + key[index+1:]  # 괄호 처리
+                    print(' '.join(k))  # 출력
+                    flag = False
+                    break
+            if not flag:
+                break
+    if flag:  # 아무 것도 지정하지 못한 경우
+        print(' '.join(k))
